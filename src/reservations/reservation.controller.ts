@@ -1,4 +1,4 @@
-import { Controller, Post, Res, HttpStatus, Body, Get, Param, NotFoundException, Delete, Query, Put } from '@nestjs/common';
+import { Controller, Post, Res, HttpStatus, Body, Get, Param, NotFoundException, Delete, Query, Put, Patch } from '@nestjs/common';
 import { ReservationService } from "./reservation.service";
 
 import { CreateReservationDTO } from "./dto/reservation.dto";
@@ -26,14 +26,14 @@ export class ReservationController {
         });
     }
 
-    // Delete reservation
-    @Delete('/:reservationID/delete')
-    async deleteProduct(@Res() res, @Param('reservationID') reservationID) {
-        const reservationDeleted = await this.reservationService.deleteReservation(reservationID);
-        if (!reservationDeleted) throw new NotFoundException('reservation does not exist!');
+    // Cancel reservation
+    @Patch('/:reservationID/cancel')
+    async cancelReservation(@Res() res, @Param('reservationID') reservationID) {
+        const reservationCancelled = await this.reservationService.cancelReservation(reservationID);
+        if (!reservationCancelled) throw new NotFoundException('reservation does not exist!');
         return res.status(HttpStatus.OK).json({
-            message: 'reservation Deleted Successfully',
-            reservationDeleted
+            message: 'reservation Cancelled Successfully',
+            reservationCancelled
         });
     }
 

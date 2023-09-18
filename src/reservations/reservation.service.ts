@@ -18,16 +18,18 @@ export class ReservationService {
     
         return reservation;
       }
-// Post a single reservation
+    // Post a single reservation
     async createReservation(createReservationDTO: CreateReservationDTO): Promise<Reservation> {
         const newReservation = new this.reservationModel(createReservationDTO);
         return newReservation.save();
     }
-    // Delete Reservation
-    async deleteReservation(reservationID: string): Promise<any> {
-        const deletedReservation = this.reservationModel.findByIdAndDelete(reservationID);
-        return deletedReservation;
+    // cancel Reservation
+    async cancelReservation(reservationID: string): Promise<Reservation> {
+        const canceldReservation = this.reservationModel.findByIdAndUpdate(reservationID, {is_cancelled: true});
+        return canceldReservation;
     }
+
+
     
 
 }

@@ -4,5 +4,5 @@ export interface Train extends Document {
     readonly arrival: string;
     readonly departure: string;
     readonly duration: string;
-    readonly availability: boolean;
+    readonly availability: number;
 }
